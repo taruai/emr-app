@@ -20,9 +20,6 @@ A desktop-based Electronic Medical Records system built with Electron, designed 
   - Medication tracking
   - Allergy documentation
 
-- **Search and Filter**
-  - Real-time search across all sections
-  - Filtered views of patient data
 
 ## Technology Stack
 
