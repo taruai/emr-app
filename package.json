@@ -1,0 +1,48 @@
+{
+  "name": "emr-app",
+  "version": "1.0.0",
+  "description": "Electronic Medical Record System",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --debug",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "keywords": [
+    "emr",
+    "medical",
+    "electron",
+    "healthcare"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "28.2.5",
+    "electron-builder": "^24.9.1",
+    "@electron/rebuild": "^3.3.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3"
+  },
+  "build": {
+    "appId": "com.emr.app",
+    "productName": "EMR System",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "public/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "public/icon.ico"
+    }
+  }
+}

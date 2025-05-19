@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EMR System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #097969;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../public/icon.ico" alt="App Logo" style="height:32px;vertical-align:middle;margin-right:8px;">
+                EMR System
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-section="patients">Patients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="appointments">Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="vitals">Vital Signs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="labs">Lab Results</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="medical-history">Medical History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="allergies">Allergies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="medications">Medications</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="settings" title="Settings">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                              <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                              <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <!-- Patients Section -->
+        <div id="patients-section" class="section active">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h2>Patient Management</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="patientSearch" placeholder="Search patients...">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPatientModal">
+                            Add New Patient
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="patientsTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Sex</th>
+                                    <th>Contact</th>
+                                    <th>
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointments Section -->
+        <div id="appointments-section" class="section">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h2>Appointment Management</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="appointmentSearch" placeholder="Search appointments...">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAppointmentModal">
+                            Schedule New Appointment
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="appointmentsTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Patient Name</th>
+                                    <th>Date & Time</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vital Signs Section -->
+        <div id="vitals-section" class="section">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h2>Vital Signs</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="vitalsSearch" placeholder="Search vital signs...">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVitalsModal">
+                            Record New Vital Signs
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="vitalsTable">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Date & Time</th>
+                                    <th>BP</th>
+                                    <th>Pulse</th>
+                                    <th>Temp</th>
+                                    <th>RR</th>
+                                    <th>O2 Sat</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lab Results Section -->
+        <div id="labs-section" class="section">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h2>Lab Results</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="labSearch" placeholder="Search lab results...">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLabResultModal">
+                            Add New Lab Result
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="labResultsTable">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Test Name</th>
+                                    <th>Result</th>
+                                    <th>Unit</th>
+                                    <th>Reference Range</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical History Section -->
+        <div id="medical-history-section" class="section">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h2>Medical History</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchMedicalHistory" placeholder="Search medical history...">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMedicalHistoryModal">
+                            Add Medical History
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="medicalHistoryTable">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Diagnosis</th>
+                                    <th>Chronic Condition</th>
+                                    <th>Procedure</th>
+                                    <th>Date Recorded</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Allergies Section -->
+        <div id="allergies-section" class="section">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h2>Allergies</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchAllergies" placeholder="Search allergies...">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAllergyModal">
+                            Add Allergy
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="allergiesTable">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Allergy Type</th>
+                                    <th>Description</th>
+                                    <th>Severity</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medications Section -->
+        <div id="medications-section" class="section">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h2>Current Medications</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchMedications" placeholder="Search medications...">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMedicationModal">
+                            Add Medication
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="medicationsTable">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Drug Name</th>
+                                    <th>Dosage</th>
+                                    <th>Frequency</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings-section" class="section">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2>Project Members</h2>
+                    <pre style="background: #f8f9fa; border-radius: 8px; padding: 16px; font-size: 1rem; color: #222;">
+BS Nursing 2C Group 3
+Alamada, Queenie Alyanna L.
+Gaid, Clint Thomas G.
+Gaton, Gwyn Raschelle P.
+Gemelo, Zybel Reign Yvon O.
+Genovia, Gifty Jhenz G.
+Hermosa, Braillean Gay L.
+Jerusalem, Keziah Audrey T.
+Licanto, Kimberly A.
+Limpag, Pearl Laurene Ken D.
+Madjos, Kenneth Erntze C.
+Sescon, Meg G.
+Tiin, Juna Luz E.
+Vergara, Ashley Mae M.
+Yaun, Jelm Bea A.
+Ylaya, Hannah H.
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Patient Modal -->
+        <div class="modal fade" id="viewPatientModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Patient Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Personal Information</h6>
+                                <table class="table table-sm">
+                                    <tr><th>Name:</th><td id="viewPatientName"></td></tr>
+                                    <tr><th>Age:</th><td id="viewPatientAge"></td></tr>
+                                    <tr><th>Sex:</th><td id="viewPatientSex"></td></tr>
+                                    <tr><th>Contact:</th><td id="viewPatientContact"></td></tr>
+                                    <tr><th>Address:</th><td id="viewPatientAddress"></td></tr>
+                                    <tr><th>Civil Status:</th><td id="viewPatientCivilStatus"></td></tr>
+                                    <tr><th>Date of Birth:</th><td id="viewPatientDOB"></td></tr>
+                                    <tr><th>Birthplace:</th><td id="viewPatientBirthplace"></td></tr>
+                                    <tr><th>Primary Language:</th><td id="viewPatientLanguage"></td></tr>
+                                    <tr><th>Religion:</th><td id="viewPatientReligion"></td></tr>
+                                    <tr><th>Occupation:</th><td id="viewPatientOccupation"></td></tr>
+                                    <tr><th>Usual Healthcare Provider:</th><td id="viewPatientHealthcareProvider"></td></tr>
+                                    <tr><th>Reason for Health Contact:</th><td id="viewPatientHealthContact"></td></tr>
+                                    <tr><th>Attending Physician:</th><td id="viewPatientPhysician"></td></tr>
+                                    <tr><th>Weight:</th><td id="viewPatientWeight"></td></tr>
+                                    <tr><th>Height:</th><td id="viewPatientHeight"></td></tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Recent Vital Signs</h6>
+                                <div id="viewPatientVitals"></div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <h6>Allergies</h6>
+                                <div id="viewPatientAllergies"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Current Medications</h6>
+                                <div id="viewPatientMedications"></div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <h6>Recent Lab Results</h6>
+                                <div id="viewPatientLabs"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Medical History</h6>
+                                <div id="viewPatientHistory"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Patient Modal -->
+        <div class="modal fade" id="editPatientModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Patient</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editPatientForm">
+                            <input type="hidden" name="id">
+                            <h6 class="mb-3">Basic Information</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" name="date_of_birth" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Sex</label>
+                                <select class="form-select" name="sex" required>
+                                    <option value="">Select...</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                    <option value="O">Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Civil Status</label>
+                                <select class="form-select" name="civil_status" required>
+                                    <option value="">Select...</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Widowed">Widowed</option>
+                                    <option value="Separated">Separated</option>
+                                    <option value="Divorced">Divorced</option>
+                                </select>
+                            </div>
+
+                            <h6 class="mb-3 mt-4">Contact Information</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Contact</label>
+                                <input type="tel" class="form-control" name="contact" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <textarea class="form-control" name="address" rows="3"></textarea>
+                            </div>
+
+                            <h6 class="mb-3 mt-4">Personal Background</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Birthplace</label>
+                                <input type="text" class="form-control" name="birthplace" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Primary Language</label>
+                                <input type="text" class="form-control" name="primary_language" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Religion</label>
+                                <input type="text" class="form-control" name="religion" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Occupation</label>
+                                <input type="text" class="form-control" name="occupation" required>
+                            </div>
+
+                            <h6 class="mb-3 mt-4">Medical Information</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Weight (kg)</label>
+                                <input type="number" class="form-control" name="weight" step="0.1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Height (cm)</label>
+                                <input type="number" class="form-control" name="height" step="0.1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Usual Healthcare Provider</label>
+                                <input type="text" class="form-control" name="usual_healthcare_provider" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Reason for Health Contact</label>
+                                <textarea class="form-control" name="reason_for_health_contact" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Attending Physician</label>
+                                <input type="text" class="form-control" name="attending_physician" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="updatePatientBtn">Update Patient</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Patient Modal -->
+        <div class="modal fade" id="addPatientModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Patient</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addPatientForm">
+                            <h6 class="mb-3">Basic Information</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" name="date_of_birth" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Sex</label>
+                                <select class="form-select" name="sex" required>
+                                    <option value="">Select...</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                    <option value="O">Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Civil Status</label>
+                                <select class="form-select" name="civil_status" required>
+                                    <option value="">Select...</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Widowed">Widowed</option>
+                                    <option value="Separated">Separated</option>
+                                    <option value="Divorced">Divorced</option>
+                                </select>
+                            </div>
+
+                            <h6 class="mb-3 mt-4">Contact Information</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Contact</label>
+                                <input type="tel" class="form-control" name="contact" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <textarea class="form-control" name="address" rows="3"></textarea>
+                            </div>
+
+                            <h6 class="mb-3 mt-4">Personal Background</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Birthplace</label>
+                                <input type="text" class="form-control" name="birthplace" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Primary Language</label>
+                                <input type="text" class="form-control" name="primary_language" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Religion</label>
+                                <input type="text" class="form-control" name="religion" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Occupation</label>
+                                <input type="text" class="form-control" name="occupation" required>
+                            </div>
+
+                            <h6 class="mb-3 mt-4">Medical Information</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Weight (kg)</label>
+                                <input type="number" class="form-control" name="weight" step="0.1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Height (cm)</label>
+                                <input type="number" class="form-control" name="height" step="0.1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Usual Healthcare Provider</label>
+                                <input type="text" class="form-control" name="usual_healthcare_provider" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Reason for Health Contact</label>
+                                <textarea class="form-control" name="reason_for_health_contact" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Attending Physician</label>
+                                <input type="text" class="form-control" name="attending_physician" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="savePatientBtn">Save Patient</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Appointment Modal -->
+        <div class="modal fade" id="addAppointmentModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Schedule New Appointment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addAppointmentForm">
+                            <div class="mb-3">
+                                <label class="form-label">Patient</label>
+                                <select class="form-select" name="patient_id" required>
+                                    <option value="">Select Patient...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Date & Time</label>
+                                <input type="datetime-local" class="form-control" name="appointment_date" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Reason</label>
+                                <textarea class="form-control" name="reason" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" name="status" required>
+                                    <option value="scheduled">Scheduled</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Follow-up Instructions</label>
+                                <textarea class="form-control" name="follow_up_instructions" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveAppointmentBtn">Save Appointment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Vital Signs Modal -->
+        <div class="modal fade" id="addVitalsModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Record Vital Signs</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addVitalsForm">
+                            <div class="mb-3">
+                                <label class="form-label">Patient</label>
+                                <select class="form-select" name="patient_id" required>
+                                    <option value="">Select Patient...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Blood Pressure</label>
+                                <input type="text" class="form-control" name="blood_pressure" placeholder="e.g., 120/80" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Pulse (bpm)</label>
+                                <input type="number" class="form-control" name="pulse" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Temperature (°C)</label>
+                                <input type="number" class="form-control" name="temperature" step="0.1" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Respiratory Rate (breaths/min)</label>
+                                <input type="number" class="form-control" name="respiratory_rate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Oxygen Saturation (%)</label>
+                                <input type="number" class="form-control" name="oxygen_saturation" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveVitalsBtn">Save Vital Signs</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Lab Result Modal -->
+        <div class="modal fade" id="addLabResultModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Lab Result</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addLabResultForm">
+                            <div class="mb-3">
+                                <label class="form-label">Patient</label>
+                                <select class="form-select" name="patient_id" required>
+                                    <option value="">Select Patient...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Test Name</label>
+                                <input type="text" class="form-control" name="test_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Result</label>
+                                <input type="text" class="form-control" name="result" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Unit</label>
+                                <input type="text" class="form-control" name="unit" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Reference Range</label>
+                                <input type="text" class="form-control" name="reference_range" required>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="is_abnormal" id="isAbnormal">
+                                    <label class="form-check-label" for="isAbnormal">
+                                        Mark as Abnormal
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveLabResultBtn">Save Lab Result</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Medical History Modal -->
+        <div class="modal fade" id="addMedicalHistoryModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Medical History</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addMedicalHistoryForm">
+                            <div class="mb-3">
+                                <label class="form-label">Patient</label>
+                                <select class="form-select" name="patient_id" required>
+                                    <option value="">Select Patient...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Diagnosis</label>
+                                <textarea class="form-control" name="diagnosis" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Chronic Condition</label>
+                                <input type="text" class="form-control" name="chronic_condition">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Procedure</label>
+                                <input type="text" class="form-control" name="procedure">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Date Recorded</label>
+                                <input type="datetime-local" class="form-control" name="date_recorded" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" form="addMedicalHistoryForm">Save Medical History</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Medical History Modal -->
+        <div class="modal fade" id="editMedicalHistoryModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Medical History</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editMedicalHistoryForm" onsubmit="return false;">
+                            <input type="hidden" name="id">
+                            <div class="mb-3">
+                                <label class="form-label">Patient</label>
+                                <select class="form-select" name="patient_id" required>
+                                    <option value="">Select Patient...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Diagnosis</label>
+                                <textarea class="form-control" name="diagnosis" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Chronic Condition</label>
+                                <input type="text" class="form-control" name="chronic_condition">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Procedure</label>
+                                <input type="text" class="form-control" name="procedure">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Date Recorded</label>
+                                <input type="datetime-local" class="form-control" name="date_recorded" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Update Medical History</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Allergy Modal -->
+        <div class="modal fade" id="addAllergyModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Allergy</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addAllergyForm">
+                            <div class="mb-3">
+                                <label class="form-label">Patient</label>
+                                <select class="form-select" name="patient_id" required>
+                                    <option value="">Select Patient...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Allergy Type</label>
+                                <input type="text" class="form-control" name="allergy_type" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <input type="text" class="form-control" name="description" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Severity</label>
+                                <select class="form-select" name="severity" required>
+                                    <option value="">Select...</option>
+                                    <option value="Mild">Mild</option>
+                                    <option value="Moderate">Moderate</option>
+                                    <option value="Severe">Severe</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" form="addAllergyForm">Save Allergy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Allergy Modal -->
+        <div class="modal fade" id="editAllergyModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Allergy</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editAllergyForm">
+                            <input type="hidden" name="id" id="editAllergyId">
+                            <input type="hidden" name="patient_id" id="editAllergyPatient">
+                            <div class="mb-3">
+                                <label class="form-label">Allergy Type</label>
+                                <input type="text" class="form-control" name="allergy_type" id="editAllergyType" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <input type="text" class="form-control" name="description" id="editAllergyDescription" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Severity</label>
+                                <select class="form-select" name="severity" id="editAllergySeverity" required>
+                                    <option value="">Select...</option>
+                                    <option value="Mild">Mild</option>
+                                    <option value="Moderate">Moderate</option>
+                                    <option value="Severe">Severe</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Update Allergy</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Medication Modal -->
+        <div class="modal fade" id="addMedicationModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Medication</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addMedicationForm">
+                            <div class="mb-3">
+                                <label class="form-label">Patient</label>
+                                <select class="form-select" name="patient_id" required>
+                                    <option value="">Select Patient...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Drug Name</label>
+                                <input type="text" class="form-control" name="drug_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Dosage</label>
+                                <input type="text" class="form-control" name="dosage" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Frequency</label>
+                                <input type="text" class="form-control" name="frequency" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" class="form-control" name="start_date" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">End Date</label>
+                                <input type="date" class="form-control" name="end_date">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" form="addMedicationForm">Save Medication</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="renderer.js"></script>
+</body>
+</html>
