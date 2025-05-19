@@ -96,13 +96,6 @@ The application uses SQLite with the following main tables:
 - lab_results
 - appointments
 
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## License
 
@@ -119,7 +112,5 @@ This project is licensed under the ISC License.
 For support, please open an issue in the GitHub repository.
 
 ## Acknowledgments
-
-- Bootstrap for the UI components
-- Electron team for the framework
-- SQLite team for the database engine 
+In Collaboration with
+BS Nursing 2C Group 3
